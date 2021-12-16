@@ -14,6 +14,15 @@ import br.ce.wcaquino.utils.DataUtils;
 import junit.framework.Assert;
 
 public class LocacaoService {
+	
+	// o LocacaoServiceTest estando na mesma estrutura (nome) de pacote mesmo estando em src/test/java, consegue enxergar as variaveis publica, protegida e default
+	// pois LocacaoService e LocacaoServiceTest estao na mesma estrutura (nome) de pacote
+	// se a LocacaoServiceTest estivesse em outro pacote (nome), entao so enxergaria a publica.
+	// por eh importante deixar os TESTS na mesma estrutura nome de pacote, mesmo q um esteja em src/main/java e src/test/java
+	public String vPublica;
+	protected String vProtegida;
+	private String vPrivada;
+	String vDefault;
 
 	public Locacao alugarFilme(Usuario usuario, Filme filme) {
 		Locacao locacao = new Locacao();
