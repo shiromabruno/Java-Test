@@ -57,6 +57,9 @@ public class AssertTest {
 		
 		assertTrue(u5 == null);
 		assertNull(u5);
+		
+		
+		
 	}
 	
 

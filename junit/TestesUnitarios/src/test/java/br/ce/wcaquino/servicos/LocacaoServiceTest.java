@@ -1,7 +1,11 @@
 package br.ce.wcaquino.servicos;
 
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
@@ -30,6 +34,20 @@ public class LocacaoServiceTest {
 		assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
 		assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
 		//assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(-1))); da erro, eh esperado dia +1
+		
+		//usando assertTHAT (mais abstrato/vago que os outros Asserts)
+		// usando o CoreMatchers (Hamcrest-core-1.3.jar traz uns Matchers proprios)
+		/*
+		assertThat("1991", is(algumValor)); // sendo que algumValor é uma String
+		assertThat("1991", is(not("2019")));
+		assertEquals("1991", algumValor);
+		*/
+		  assertThat(locacao.getValor(), is(5.0)); // 
+		  assertThat(locacao.getValor(), equalTo(5.0)); // 
+		  assertThat(locacao.getValor(), is(not(4.0))); // 
+		  
+		  assertThat(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
+		  assertThat(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
 
 	}
 }
