@@ -24,7 +24,13 @@ public class LocacaoService {
 	private String vPrivada;
 	String vDefault;
 
-	public Locacao alugarFilme(Usuario usuario, Filme filme) {
+	public Locacao alugarFilme(Usuario usuario, Filme filme) throws Exception {
+		
+		if(filme.getEstoque() == 0) {
+			throw new Exception("Filme sem estoque");
+		}
+		
+		
 		Locacao locacao = new Locacao();
 		locacao.setFilme(filme);
 		locacao.setUsuario(usuario);
@@ -61,18 +67,26 @@ public class LocacaoService {
 	 
 	@Test
 	public void teste() {
-
+		
 		LocacaoService service = new LocacaoService();
 		Usuario usuario = new Usuario("Usuario1");
 		Filme filme = new Filme("Filme1", 2, 5.0);
-
+		
+		try {
 		Locacao locacao = service.alugarFilme(usuario, filme);
-
+		
 		//assertTrue(locacao.getValor() == 4.0); da erro pois eh esperado 5
 		assertTrue(locacao.getValor() == 5.0);
 		assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
 		assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
 		//assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(-1))); da erro, eh esperado dia +1
+				
+		}
+		catch(Exception ex){
+			System.out.println("Erro: " + ex);
+		}
+
+		
 
 	}
 }
