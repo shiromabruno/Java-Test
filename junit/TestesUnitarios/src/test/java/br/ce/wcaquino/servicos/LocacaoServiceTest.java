@@ -7,7 +7,9 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -72,10 +74,11 @@ public class LocacaoServiceTest {
 		//System.out.println("testeAlocacao");
 		
 		Usuario usuario = new Usuario("Usuario1");
-		Filme filme = new Filme("Filme1", 2, 5.0);
+		//Filme filme = new Filme("Filme1", 2, 5.0);
+		List<Filme> filmes = Arrays.asList(new Filme("Filme1", 2, 5.0));
 
 		try {
-			Locacao locacao = service.alugarFilme(usuario, filme);
+			Locacao locacao = service.alugarFilme(usuario, filmes);
 			
 			assertTrue(locacao.getValor() == 5.0); // ou fazer igual ao de baixo
 			assertEquals(locacao.getValor(), 5.0, 0.001);
@@ -164,9 +167,10 @@ public class LocacaoServiceTest {
 			//System.out.println("testeAlocacaoComExpectExceptionEstoqueFilmeZero");
 
 			Usuario usuario = new Usuario("Usuario1");
-			Filme filme = new Filme("Filme1", 0, 5.0);
+			//Filme filme = new Filme("Filme1", 0, 5.0);
+			List<Filme> filmes = Arrays.asList(new Filme("Filme1", 0, 5.0));
 		
-				Locacao locacao = service.alugarFilme(usuario, filme);
+				Locacao locacao = service.alugarFilme(usuario, filmes);
 				
 				assertTrue(locacao.getValor() == 5.0); // ou fazer igual ao de baixo
 				assertEquals(locacao.getValor(), 5.0, 0.001);
@@ -193,11 +197,12 @@ public class LocacaoServiceTest {
 			//System.out.println("testeAlocacaoComTryCatchEstoqueFilmeZero");
 				
 			Usuario usuario = new Usuario("Usuario1");
-			Filme filme = new Filme("Filme1", 0, 5.0);
+			//Filme filme = new Filme("Filme1", 0, 5.0);
+			List<Filme> filmes = Arrays.asList(new Filme("Filme1", 0, 5.0));
 		
 				Locacao locacao;
 				try {
-					locacao = service.alugarFilme(usuario, filme);
+					locacao = service.alugarFilme(usuario, filmes);
 					
 					Assert.fail("OPA, deveria ter dado uma excecao");
 					
@@ -229,12 +234,13 @@ public class LocacaoServiceTest {
 			//System.out.println("testeAlocacaoComExceptionMethodEstoqueFilmeZero");
 				
 			Usuario usuario = new Usuario("Usuario1");
-			Filme filme = new Filme("Filme1", 0, 5.0);
+			//Filme filme = new Filme("Filme1", 0, 5.0);
+			List<Filme> filmes = Arrays.asList(new Filme("Filme1", 0, 5.0));
 			
 				exception.expect(Exception.class);
 				exception.expectMessage("Filme sem estoque");
 		
-				Locacao locacao = service.alugarFilme(usuario, filme);
+				Locacao locacao = service.alugarFilme(usuario, filmes);
 				
 				assertTrue(locacao.getValor() == 5.0); // ou fazer igual ao de baixo
 				assertEquals(locacao.getValor(), 5.0, 0.001);
@@ -258,11 +264,12 @@ public class LocacaoServiceTest {
 			
 			//System.out.println("testeLocacaoUsuarioVazio");
 			
-			Filme filme = new Filme("Filme2", 3, 5.0);
+			//Filme filme = new Filme("Filme2", 3, 5.0);
 			//Usuario usuario = new Usuario("Usuario1");
+			List<Filme> filmes = Arrays.asList(new Filme("Filme1", 2, 5.0));
 			
 			try {
-				Locacao locacao = service.alugarFilme(null, filme);
+				Locacao locacao = service.alugarFilme(null, filmes);
 				//Locacao locacao = service.alugarFilme(usuario, filme);
 				Assert.fail("Opa, deveria ter caido no LocadoraException");
 			} 
