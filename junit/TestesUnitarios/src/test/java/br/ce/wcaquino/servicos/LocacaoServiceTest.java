@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -337,6 +338,18 @@ public class LocacaoServiceTest {
 			Locacao locacao = service.alugarFilme(usuario, filmes);
 			
 			assertEquals(locacao.getValor(), 14.0, 0.001);
+		}
+		
+		@Test
+		public void naoDeveDevolverFilmeNoDomingoSeAlugarSabado() throws FilmeSemEstoqueException, LocadoraException {
+			Usuario usuario = new Usuario("Usuario1");
+			List<Filme> filmes = Arrays.asList(new Filme("Filme1", 2, 4.0), new Filme("Filme2", 2, 4.0));
+			
+			Locacao locacao = service.alugarFilme(usuario, filmes);
+			
+			boolean ehSegunda = DataUtils.verificarDiaSemana(locacao.getDataRetorno(), Calendar.MONDAY);
+			assertTrue(ehSegunda);
+			
 		}
 		
 }
